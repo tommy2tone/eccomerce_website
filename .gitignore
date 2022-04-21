@@ -1,0 +1,24 @@
+
+
+# dependencies
+projfrontend/node_modules*
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+
+ecom/api/migrations*
+ecom/api/__pycache__*
+ecom/ecom/__pycache__*
+ecom/db.sqlite3
+projfrontend/build*
+npm-debug.log*
+
+
+
