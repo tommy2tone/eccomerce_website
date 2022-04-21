@@ -20,5 +20,7 @@ ecom/db.sqlite3
 projfrontend/build*
 npm-debug.log*
 
+ecom/ecom/secretKey.py
+
 
 
