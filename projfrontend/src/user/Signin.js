@@ -5,12 +5,10 @@ import { Link, Navigate } from 'react-router-dom'
 
 
 
-
-
 const Signin = () => {
     const [values, setValues] = useState({
-        email: "",
-        password: "",
+        email: "t1manster@gmail.com",
+        password: "12345",
         error: "",
         success: false,
         loading: false,
@@ -28,11 +26,11 @@ const Signin = () => {
         event.preventDefault();
         setValues({...values, error: false, loading:true});
         signin({email, password})
-        .then(data => {
-            console.log("Data", data);
+        .then((data) => {
+            console.log(data);
             if (data.token) {
-                let sessionToken = data.token;
-                authenticate(sessionToken, () => {
+                // let sessionToken = data.token;
+                authenticate(data, () => {
                     setValues({
                         ...values,
                         didRedirect: true,

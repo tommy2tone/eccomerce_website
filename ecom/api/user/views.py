@@ -25,8 +25,8 @@ def signin(request):
     password = request.POST['password']
 
 # Validation part
-    if not re.match("^[\w\.\+\-]+\@[\w]+\.[a-z{2,3}$", username):
-        return JsonResponse({'error':"Enter a valid email"})
+    # if not re.match("^[\w\.\+\-]+\@[\w]+\.[a-z{2,3}$", username):
+    #     return JsonResponse({'error':"Enter a valid email"})
 
     if len(password) < 3:
         return JsonResponse({'error': 'Password needs to be at least 3 characters'})

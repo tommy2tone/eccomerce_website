@@ -21,13 +21,16 @@ export const signup = user => {
 export const signin = user => {
     const formData = new FormData();
 
-    for (const name in formData){
-        formData.append(name, user[name])
+
+    for (const name in user){
+        console.log(name, user[name]); 
+        formData.append(name, user[name]);
     }
 
-    return fetch(`${API}/user/login`, {
+
+    return fetch(`${API}user/login/`, {
         method: "POST",
-        body: formData
+        body: formData,
     })
     .then(response => {
         return response.json();
