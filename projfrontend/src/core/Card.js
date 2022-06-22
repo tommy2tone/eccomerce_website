@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ImageHelper from './helper/ImageHelper';
 import {Navigate} from 'react-router-dom';
 import { addItemToCart, removeItemFromCart } from './helper/cartHelper';
+import { isAuthenticated } from '../auth/helper';
 
-
-
-//TODO:  Update later
-const isAuthenticated = true
 
 const Card = ({
   product,
   addtoCart = true,
-  removeFromCart = true
-
+  removeFromCart = false,
+  reload = undefined,
+  setReload = f => f,
 
 }) => {
 
+  const [redirect, setRedirect] = useState(false);
+  const cartTitle = product ? product.name : "A great product";
+  const cartDescription = product ? product.description : "Default item";
+  const cartPrice = product ? product.price : "Default";
+
   const addToCart = () => {
-    if (isAuthenticated) {
-      addItemToCart(product, () => {});
+    if (isAuthenticated()) {
+      addItemToCart(product, () => setRedirect(true));
       console.log("Added to cart");
       
     }else{
@@ -26,16 +29,17 @@ const Card = ({
     }
   };
 
-  const getAredirect = redirect => {
+  const getAredirect = (redirect) => {
+
     if (redirect) {
-      <Navigate to="/cart"/>
+      return <Navigate to="/cart"/>
       
     }
   };
 
   const showAddToCart = addToCart => {
     return (
-      addToCart && (
+      addtoCart && (
         <button
               onClick={addToCart}
               className="btn btn-block btn-outline-success mt-2 mb-2"
@@ -53,6 +57,7 @@ const Card = ({
         <button
               onClick={() => {
                 removeItemFromCart(product.id);
+                setReload(!reload);
                 console.log("Product removed from cart")
               }}
               className="btn btn-black btn-outline-danger mt-2 mb-2"
@@ -64,14 +69,16 @@ const Card = ({
   };
 
   return (
+
     <div className="card text-white bg-dark border border-info">
-      <div className="card-header lead">{product ? product.name : "A photo"}</div>
+      <div className="card-header lead">{cartTitle}</div>
       <div className="card-body">
+        {getAredirect(redirect)}
         <ImageHelper product={product}/>
         <p className="lead bg-success font-weight-normal text-wrap">
-          {product ? product.description : "Default Despcription"}
+          {cartDescription}
         </p>
-        <p className="btn btn-success rounded btn-sm px-4">${product ? product.price : "Default"}</p>
+        <p className="btn btn-success rounded btn-sm px-4">${cartPrice}</p>
         <div className="row">
           <div className="col-12">
             {showAddToCart(addToCart)}
